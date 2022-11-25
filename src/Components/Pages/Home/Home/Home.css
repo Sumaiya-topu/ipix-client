@@ -1,0 +1,11 @@
+.home{
+    height: 800px;
+}
+
+.banner{
+    background-image: linear-gradient(to bottom, rgba(50, 116, 38, 0.415), rgba(0, 0, 0, 0.488)), url('/src/assets/banner-iphone.avif');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 500px;
+
+}
