@@ -4,6 +4,7 @@ import Blog from "../Components/Pages/Blog/Blog";
 import Home from "../Components/Pages/Home/Home/Home";
 import Login from "../Components/Pages/Login/Login";
 import MyProducts from "../Components/Pages/MyProducts/MyProducts/MyProducts";
+import Products from "../Components/Pages/Products/Products";
 import SignUp from "../Components/Pages/SignUp/SignUp";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
             <MyProducts></MyProducts>
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/categories/:id/products",
+        element: <Products></Products>,
       },
     ],
   },

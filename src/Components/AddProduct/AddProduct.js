@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { AuthContext } from "../../Context/AuthProvider";
 
 const AddProduct = () => {
   const { register, handleSubmit } = useForm();
 
+  const { user } = useContext(AuthContext);
+  console.log(user);
   const [categories, setCategories] = useState([]);
   useEffect(() => {
     fetch("http://localhost:5000/categories")
@@ -13,6 +16,22 @@ const AddProduct = () => {
 
   const handleSubmitProduct = (data) => {
     console.log(data);
+
+    data = { ...data, seller_email: user.email };
+
+    fetch(`http://localhost:5000/categories/${data.category_id}/products`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          alert("Product Added SUccesfully");
+        }
+      });
   };
   return (
     <div className="h-[800px] flex justify-center items-center ">
@@ -24,11 +43,27 @@ const AddProduct = () => {
               <span className="label-text">Choose Your Brand :</span>
             </label>
             <select {...register("category_id")} className="inline-block">
+              <option selected disabled>
+                Brand
+              </option>
               {categories.map((category) => (
                 <option value={category._id} key={category._id}>
                   {category.title}
                 </option>
               ))}
+            </select>
+          </div>
+          <div>
+            <label className="label inline-block">
+              <span className="label-text">Your Product Condition</span>
+            </label>
+            <select {...register("condition")} className="inline-block">
+              <option selected disabled>
+                Condition
+              </option>
+              <option value="excellent">Excellent</option>
+              <option value="good">Good</option>
+              <option value="fair">Fair</option>
             </select>
           </div>
 
