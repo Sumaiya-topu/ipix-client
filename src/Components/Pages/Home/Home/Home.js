@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-
+import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Category from "../../../Category/Category";
 import "./Home.css";
 
@@ -22,6 +22,14 @@ const Home = () => {
             <Category key={category._id} category={category}></Category>
           ))}
         </div>
+      </div>
+      <div>
+        <Link
+          className="btn btn-outline animate-bounce w-48 h-12"
+          to="/addproduct"
+        >
+          Post
+        </Link>
       </div>
     </div>
   );

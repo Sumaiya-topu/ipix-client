@@ -1,3 +1,4 @@
+import AddProduct from "../Components/AddProduct/AddProduct";
 import Main from "../Components/Layout/Main/Main";
 import Blog from "../Components/Pages/Blog/Blog";
 import Home from "../Components/Pages/Home/Home/Home";
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUp> </SignUp>,
+      },
+      {
+        path: "/addproduct",
+        element: <AddProduct></AddProduct>,
       },
       {
         path: "/myproducts",

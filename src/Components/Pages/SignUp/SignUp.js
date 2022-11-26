@@ -36,7 +36,16 @@ const SignUp = () => {
         console.error(error);
         setSignUpError(error.message);
       });
+
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
   };
+
   return (
     <div className="h-[800px] flex justify-center items-center ">
       <div>
@@ -88,12 +97,19 @@ const SignUp = () => {
             )}
           </div>
 
+          <label className="label inline-block">
+            <span className="label-text">Choose Your Role :</span>
+          </label>
+          <select {...register("user_type")} className="inline-block">
+            <option value="seller">Seller</option>
+            <option value="buyer">Buyer</option>
+          </select>
+
           <input
             type="submit"
             className=" btn btn-accent text-white w-full mt-5 "
           />
           {signUpError && <p className="text-rose-600">{signUpError}</p>}
-
           <p className="mt-2">
             Already have an account?{" "}
             <Link to="/login" className="text-success">
