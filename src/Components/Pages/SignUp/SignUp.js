@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../../Context/AuthProvider";
 import toast from "react-hot-toast";
+import useToken from "../../../hooks/useToken";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const SignUp = () => {
   const {
@@ -12,27 +14,30 @@ const SignUp = () => {
   } = useForm();
 
   const [signUpError, setSignUpError] = useState("");
-
   const { createUser, updateUser } = useContext(AuthContext);
+  const [createdUserEmail, setcreatedUserEmail] = useState("");
+  const [token] = useToken(createdUserEmail);
   const navigate = useNavigate();
+  if (token) {
+    navigate("/");
+  }
 
   const handleSignUp = (data) => {
-    console.log(data);
     setSignUpError("");
     createUser(data.email, data.password)
       .then((result) => {
         const user = result.user;
         console.log(user);
         toast("User Created successfully");
+
         const userInfo = {
           displayName: data.name,
           role: data.user_type,
         };
-        console.log(userInfo);
+
         updateUser(userInfo)
           .then(() => {
-            console.log(user);
-            navigate("/");
+            saveUser(data.name, data.email, data.user_type);
           })
           .catch((err) => console.log(err));
       })
@@ -40,14 +45,21 @@ const SignUp = () => {
         console.error(error);
         setSignUpError(error.message);
       });
+  };
 
+  const saveUser = (name, email, user_type) => {
+    const user = { name, email, user_type };
     fetch("http://localhost:5000/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
-    });
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setcreatedUserEmail(email);
+      });
   };
 
   return (

@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { AuthContext } from "../../../Context/AuthProvider";
 import { GoogleAuthProvider } from "firebase/auth";
+import useToken from "../../../hooks/useToken";
 
 const Login = () => {
   const {
@@ -14,6 +15,8 @@ const Login = () => {
 
   const { signIn, providerLogin } = useContext(AuthContext);
   const [loginError, setLoginError] = useState("");
+  const [loginUserEmail, setLoginUserEmail] = useState("");
+  const [token] = useToken(loginUserEmail);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -31,6 +34,10 @@ const Login = () => {
       .catch((error) => console.error(error));
   };
 
+  if (token) {
+    navigate(from, { replace: true });
+  }
+
   const handleLogin = (data) => {
     console.log(data);
     setLoginError("");
@@ -38,7 +45,7 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
-        navigate(from, { replace: true });
+        setLoginUserEmail(data.email);
       })
       .catch((error) => {
         console.log(error.message);
