@@ -1,15 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import Category from "../../../Category/Category";
 import "./Home.css";
+import axios from "axios";
 
 const Home = () => {
-  const [categories, setCategories] = useState([]);
-  useEffect(() => {
-    fetch("http://localhost:5000/categories")
-      .then((res) => res.json())
-      .then((data) => setCategories(data));
-  }, []);
+  const { data: categories = [] } = useQuery({
+    queryKey: ["products"],
+    queryFn: async () => {
+      const res = await axios.get("http://localhost:5000/categories");
+      //const data = await res.json();
+      return res.data;
+    },
+  });
+
   return (
     <div>
       <div className="home relative ">

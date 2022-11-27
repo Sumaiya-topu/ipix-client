@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import BookingModal from "../../BookingModal/BookingModal";
 import Product from "./Product";
+import axios from "axios";
 
 const Products = () => {
   const params = useParams();
-  const [products, setProducts] = useState([]);
   const [order, setOrder] = useState(null);
-  useEffect(() => {
-    fetch(`http://localhost:5000/categories/${params.id}/products`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setProducts(data);
-      });
-  }, [params.id]);
+
+  const { data: products = [] } = useQuery({
+    queryKey: ["products"],
+    queryFn: async () => {
+      const res = await axios.get(
+        `http://localhost:5000/categories/${params.id}/products`
+      );
+      //const data = await res.json();
+      return res.data;
+    },
+  });
 
   return (
     <div>

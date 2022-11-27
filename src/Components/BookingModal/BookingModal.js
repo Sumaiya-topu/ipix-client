@@ -1,21 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+import toast from "react-hot-toast";
+import { AuthContext } from "../../Context/AuthProvider";
 
 const BookingModal = ({ order, setOrder }) => {
-  const {
-    _id,
-    model_name,
-    condition,
-    location,
-    mobile_number,
-    original_price,
-    posted_on,
-    productPhotoUrl,
-    resale_price,
-    seller_email,
-    sold,
-    year_of_purchase,
-    years_of_use,
-  } = order;
+  const { user } = useContext(AuthContext);
+  console.log(user);
+  const { _id, model_name, original_price, resale_price } = order;
 
   const handleBooking = (event) => {
     event.preventDefault();
@@ -40,11 +30,19 @@ const BookingModal = ({ order, setOrder }) => {
       buyers_phone_number: phone_number,
       meeting_location,
     };
-
-    // TODO : send datav to the server and once data is saved display toast
+    fetch("http://localhost:5000/bookings", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(booking),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setOrder(null);
+        toast.success("Booking Confirmed");
+      });
 
     console.log(booking);
-    setOrder(null);
   };
 
   return (
@@ -61,43 +59,51 @@ const BookingModal = ({ order, setOrder }) => {
           <h3 className="text-lg font-bold">{model_name}</h3>
           <form
             onSubmit={handleBooking}
-            className="grid grid-cols-1 gap-3 mt-5"
+            className="grid grid-cols-1 gap-3 mt-5 rounded-sm"
           >
             <input
               name="name"
               type="text"
               placeholder="Name"
-              className="input w-full "
+              className="input w-full rounded-sm "
+              value={user.displayName}
+              disabled
             />
             <input
               name="email"
               type="text"
               placeholder="Email"
-              className="input w-full "
+              className="input w-full rounded-sm "
+              value={user.email}
+              disabled
             />
             <input
               name="price"
               type="text"
               placeholder="Price"
-              value={`Official Price : ${original_price} || Sale Price : Negotiable`}
+              value={`Official Price : ${original_price} || Sale Price : ${resale_price}`}
               disabled
-              className="input w-full "
+              className="input w-full rounded-sm "
             />
             <input
               name="phone_number"
               type="text"
               placeholder="Phone Number"
-              className="input w-full "
+              className="input w-full rounded-sm "
             />
             <input
               name="meeting_location"
               type="text"
               placeholder="Meeting Location"
-              className="input w-full "
+              className="input w-full rounded-sm "
             />
 
             <br />
-            <input className=" btn w-full " type="submit" value="Submit" />
+            <input
+              className=" btn w-full rounded-sm "
+              type="submit"
+              value="Submit"
+            />
           </form>
         </div>
       </div>

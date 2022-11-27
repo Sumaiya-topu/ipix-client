@@ -31,7 +31,7 @@ const AuthProvider = ({ children }) => {
 
   // Update User
   const updateUser = (userInfo) => {
-    return updateProfile(user, userInfo);
+    return updateProfile(auth.currentUser, userInfo);
   };
 
   // Google authentication
@@ -61,6 +61,7 @@ const AuthProvider = ({ children }) => {
     logOut,
     updateUser,
     providerLogin,
+    setUser,
     user,
     loading,
   };

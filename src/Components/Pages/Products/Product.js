@@ -17,7 +17,7 @@ const Product = ({ product, setOrder }) => {
   } = product;
   return (
     <div>
-      <div className="hero min-h-screen bg-base-200">
+      <div className="hero lg:min-h-screen bg-base-200">
         <div className="hero-content w-3/4 flex-col lg:flex-row-reverse">
           <img
             src={productPhotoUrl}
