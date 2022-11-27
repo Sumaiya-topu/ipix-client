@@ -1,6 +1,6 @@
 import React from "react";
 
-const Product = (params) => {
+const Product = ({ product, setOrder }) => {
   const {
     model_name,
     condition,
@@ -14,24 +14,38 @@ const Product = (params) => {
     sold,
     year_of_purchase,
     years_of_use,
-  } = params.product;
+  } = product;
   return (
     <div>
       <div className="hero min-h-screen bg-base-200">
-        <div className="hero-content flex-col lg:flex-row-reverse">
+        <div className="hero-content w-3/4 flex-col lg:flex-row-reverse">
           <img
             src={productPhotoUrl}
-            className="max-w-sm rounded-lg shadow-2xl"
+            className="max-w-sm rounded-sm shadow-2xl"
             alt=""
           />
+
           <div>
-            <h1 className="text-5xl font-bold">Box Office News!</h1>
-            <p className="py-6">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
+            <h1 className="text-5xl font-bold">{model_name}</h1>
+            <p className="mt-3">{posted_on}</p>
+            <p className="pt-6">Product Condition : {condition}</p>
+            <p className="">
+              Bought : in {year_of_purchase} || Use : {years_of_use}
             </p>
-            <button className="btn btn-primary">Get Started</button>
+            <p className="">Original price {original_price}</p>
+            <p className="">Resale Price : {resale_price}</p>
+            <p className="">Location : {location}</p>
+
+            <p className="">Contact for query : {mobile_number}</p>
+            <p className="">Email for information : {seller_email}</p>
+
+            <label
+              onClick={() => setOrder(product)}
+              htmlFor="booking-modal"
+              className=" btn btn-primary text-white rounded-sm mt-5"
+            >
+              Order Now
+            </label>
           </div>
         </div>
       </div>
