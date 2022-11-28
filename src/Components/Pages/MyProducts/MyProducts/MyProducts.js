@@ -15,16 +15,45 @@ const MyProducts = () => {
         },
       });
       const data = await res.json();
+      console.log(data);
       return data;
     },
   });
 
   return (
     <div>
-      <h1 className="text-2xl my-5  lg:text-left font-bold">My Products</h1>
-      {myProducts.map((myProduct) => (
-        <p>{myProduct.model_name}</p>
-      ))}
+      <div className="overflow-x-auto">
+        <table className="table w-full">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Advertise</th>
+              <th>Detele</th>
+            </tr>
+          </thead>
+          <tbody>
+            {myProducts.map((product, i) => (
+              <tr key={product._id}>
+                <th>{i + 1}</th>
+                <td>{product.model_name}</td>
+                <td>{product.original_price}</td>
+                <td>
+                  <button className="btn btn-xs btn-primary rounded-sm">
+                    Advertise
+                  </button>
+                </td>
+                <td>
+                  <button className="btn btn-xs btn-error rounded-sm">
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

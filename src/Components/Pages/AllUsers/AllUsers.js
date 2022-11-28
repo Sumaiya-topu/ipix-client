@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { async } from "@firebase/util";
+import toast from "react-hot-toast";
 
 const AllUsers = () => {
-  const [users, setUsers] = useState([]);
-  useEffect(() => {
-    fetch("http://localhost:5000/users")
-      .then((res) => res.json())
-      .then((data) => setUsers(data));
-  }, []);
+  const { data: users = [], refetch } = useQuery({
+    queryKey: ["users"],
+    queryFn: async () => {
+      const res = await fetch("http://localhost:5000/users");
+      const data = await res.json();
+      return data;
+    },
+  });
 
   const handleMakeAdmin = (id) => {
     fetch(`http://localhost:5000/users/admin/${id}`, {
@@ -16,7 +21,12 @@ const AllUsers = () => {
       },
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          toast.success("Make admin successfully");
+          refetch();
+        }
+      });
   };
 
   return (
@@ -40,7 +50,7 @@ const AllUsers = () => {
                   <td>{user.name}</td>
                   <td>{user.email}</td>
                   <td>
-                    {user?.role !== "admin" && (
+                    {user?.userType !== "admin" && (
                       <button
                         onClick={() => handleMakeAdmin(user._id)}
                         className="btn btn-xs btn-primary rounded-sm"

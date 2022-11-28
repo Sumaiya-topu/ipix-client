@@ -32,7 +32,7 @@ const SignUp = () => {
 
         const userInfo = {
           displayName: data.name,
-          role: data.user_type,
+          user_type: data.user_type,
         };
 
         updateUser(userInfo)
