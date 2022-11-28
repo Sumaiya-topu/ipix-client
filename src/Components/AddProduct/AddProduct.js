@@ -34,9 +34,9 @@ const AddProduct = () => {
       });
   };
   return (
-    <div className="h-[800px] flex justify-center items-center ">
+    <div className="drop-shadow-md border flex justify-center items-center pb-10 mt-10">
       <div>
-        <h1 className="text-4xl"> Add You Product Info</h1>
+        <h1 className="text-4xl my-5"> Add Your Product Info</h1>
         <form onSubmit={handleSubmit(handleSubmitProduct)}>
           <div>
             <label className="label inline-block">
@@ -74,7 +74,7 @@ const AddProduct = () => {
             <input
               {...register("model_name", { required: true })}
               type="text"
-              className="input input-bordered w-full max-w-xs"
+              className="input input-bordered  "
             />
           </div>
 

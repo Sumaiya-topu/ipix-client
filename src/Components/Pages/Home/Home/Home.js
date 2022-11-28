@@ -19,23 +19,33 @@ const Home = () => {
     <div>
       <div className="home relative ">
         <div className="banner flex flex-col justify-center align-middle">
-          <h1 className="text-6xl text-white font-bold">i-Pix</h1>
-          <h1 className="text-8xl text-white">Quality Guaranteed </h1>
+          <h1 className="text-4xl text-white font-bold">
+            i- <span className="text-rose-700">Pix</span>
+          </h1>
+          <h1 className="text-6xl text-white font-serif font-bold	">
+            Quality Guaranteed{" "}
+          </h1>
+          <div>
+            <Link
+              className="btn  btn-error rounded-sm text-white animate-bounce mt-10 w-48 h-12"
+              to="/addproduct"
+            >
+              Post
+            </Link>
+          </div>
         </div>
-        <div className="absolute inset-x-0 top-96 w-3/4  mx-auto bg-base-300 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {categories.map((category) => (
-            <Category key={category._id} category={category}></Category>
-          ))}
+        <div className="absolute inset-x-0 top-96 w-3/4  mx-auto bg-base-300">
+          <h1 className="text-4xl  p-10 font-serif	">
+            Choose according to your taste
+          </h1>
+          <div className="  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
+            {categories.map((category) => (
+              <Category key={category._id} category={category}></Category>
+            ))}
+          </div>
         </div>
       </div>
-      <div>
-        <Link
-          className="btn btn-outline animate-bounce w-48 h-12"
-          to="/addproduct"
-        >
-          Post
-        </Link>
-      </div>
+      <div className=" h-80 bg-base-200 mb-2"></div>
     </div>
   );
 };

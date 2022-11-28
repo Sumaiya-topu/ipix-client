@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Context/AuthProvider";
+import logo from "../../../assets/ipix-logo.svg";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -47,7 +48,10 @@ const Navbar = () => {
               </li>
             </ul>
           </div>
-          <Link className="btn btn-ghost normal-case text-xl">i-Pix</Link>
+          <img className="w-10" src={logo} alt="" />
+          <Link className="font-bold text-2xl">
+            i-<span className="text-rose-500">Pix</span>
+          </Link>
         </div>
 
         <div className="navbar-center hidden lg:flex">
