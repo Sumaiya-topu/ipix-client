@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Category from "../../../Category/Category";
 import "./Home.css";
 import axios from "axios";
+import AdvertiseSection from "../../../../Components/AdvertiseSection/AdvertiseSection";
 
 const Home = () => {
   const { data: categories = [] } = useQuery({
@@ -17,7 +18,7 @@ const Home = () => {
 
   return (
     <div>
-      <div className="home relative ">
+      <div className="home ">
         <div className="banner flex flex-col justify-center align-middle">
           <h1 className="text-4xl text-white font-bold">
             i- <span className="text-rose-700">Pix</span>
@@ -34,15 +35,16 @@ const Home = () => {
             </Link>
           </div>
         </div>
-        <div className="absolute inset-x-0 top-96 w-3/4  mx-auto bg-base-300">
-          <h1 className="text-4xl  p-10 font-serif	">
-            Choose according to your taste
-          </h1>
-          <div className="  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
-            {categories.map((category) => (
-              <Category key={category._id} category={category}></Category>
-            ))}
-          </div>
+      </div>
+      <AdvertiseSection></AdvertiseSection>
+      <div className=" w-3/4  mx-auto bg-base-300">
+        <h1 className="text-4xl  p-10 font-serif	">
+          Choose according to your taste
+        </h1>
+        <div className="  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
+          {categories.map((category) => (
+            <Category key={category._id} category={category}></Category>
+          ))}
         </div>
       </div>
       <div className=" h-80 bg-base-200 mb-2"></div>
