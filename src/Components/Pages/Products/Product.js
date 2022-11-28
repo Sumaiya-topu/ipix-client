@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../../../Context/AuthProvider";
+import useSeller from "../../../hooks/useSeller";
 
 const Product = ({ product, setOrder }) => {
+  const { user } = useContext(AuthContext);
+  const [isSeller] = useSeller(user?.email);
   const {
     model_name,
     condition,
@@ -39,13 +43,15 @@ const Product = ({ product, setOrder }) => {
             <p className="">Contact for query : {mobile_number}</p>
             <p className="">Email for information : {seller_email}</p>
 
-            <label
-              onClick={() => setOrder(product)}
-              htmlFor="booking-modal"
-              className=" btn btn-primary text-white rounded-sm mt-5"
-            >
-              Order Now
-            </label>
+            {!isSeller && (
+              <label
+                onClick={() => setOrder(product)}
+                htmlFor="booking-modal"
+                className=" btn btn-primary text-white rounded-sm mt-5"
+              >
+                Order Now
+              </label>
+            )}
           </div>
         </div>
       </div>

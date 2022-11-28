@@ -2,11 +2,16 @@ import React, { useContext, useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import Category from "../../../Category/Category";
+import useSeller from "../../../../hooks/useSeller";
 import "./Home.css";
 import axios from "axios";
 import AdvertiseSection from "../../../../Components/AdvertiseSection/AdvertiseSection";
+import { AuthContext } from "../../../../Context/AuthProvider";
 
 const Home = () => {
+  const { user } = useContext(AuthContext);
+  const [isSeller] = useSeller(user?.email);
+
   const { data: categories = [] } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
@@ -26,14 +31,16 @@ const Home = () => {
           <h1 className="text-6xl text-white font-serif font-bold	">
             Quality Guaranteed{" "}
           </h1>
-          <div>
-            <Link
-              className="btn  btn-error rounded-sm text-white animate-bounce mt-10 w-48 h-12"
-              to="/addproduct"
-            >
-              Post
-            </Link>
-          </div>
+          {isSeller && (
+            <div>
+              <Link
+                className="btn  btn-error rounded-sm text-white animate-bounce mt-10 w-48 h-12"
+                to="/addproduct"
+              >
+                Post
+              </Link>
+            </div>
+          )}
         </div>
       </div>
       <AdvertiseSection></AdvertiseSection>
