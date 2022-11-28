@@ -71,6 +71,7 @@ const Navbar = () => {
         <div className="navbar-end">
           {user?.uid ? (
             <>
+              <p>{user.name}</p>
               <button onClick={handleLogOut}>Sign Out</button>
               <img
                 className=" ml-5 w-12 rounded-full "

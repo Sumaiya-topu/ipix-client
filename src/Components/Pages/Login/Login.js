@@ -5,6 +5,7 @@ import { FcGoogle } from "react-icons/fc";
 import { AuthContext } from "../../../Context/AuthProvider";
 import { GoogleAuthProvider } from "firebase/auth";
 import useToken from "../../../hooks/useToken";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const {
@@ -27,11 +28,31 @@ const Login = () => {
   const handleGoogleSignIn = () => {
     providerLogin(googleProvider)
       .then((result) => {
-        const user = result.user;
-        console.log(user);
-        navigate(from, { replace: true });
+        const { displayName, email } = result.user;
+        saveUser(displayName, email, "buyer");
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
+
+  const saveUser = (name, email, user_type) => {
+    const user = {
+      name,
+      email,
+      user_type,
+    };
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setLoginUserEmail(email);
+      });
   };
 
   if (token) {
