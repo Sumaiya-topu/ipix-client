@@ -9,7 +9,7 @@ const AddProduct = () => {
   console.log(user);
   const [categories, setCategories] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/categories")
+    fetch("https://ipix-server.vercel.app/categories")
       .then((res) => res.json())
       .then((data) => setCategories(data));
   }, []);
@@ -17,9 +17,9 @@ const AddProduct = () => {
   const handleSubmitProduct = (data) => {
     console.log(data);
 
-    data = { ...data, seller_email: user.email };
+    data = { ...data, seller_email: user.email, is_adevrtised: false };
 
-    fetch(`http://localhost:5000/categories/${data.category_id}/products`, {
+    fetch(`https://ipix-server.vercel.app/${data.category_id}/products`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

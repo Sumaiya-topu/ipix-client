@@ -35,7 +35,7 @@ const BookingModal = ({ order, setOrder }) => {
       buyers_phone_number: phone_number,
       meeting_location,
     };
-    fetch("http://localhost:5000/bookings", {
+    fetch("https://ipix-server.vercel.app/bookings", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(booking),

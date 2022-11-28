@@ -9,7 +9,7 @@ const Home = () => {
   const { data: categories = [] } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:5000/categories");
+      const res = await axios.get("https://ipix-server.vercel.app/categories");
       //const data = await res.json();
       return res.data;
     },

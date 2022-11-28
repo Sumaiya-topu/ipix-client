@@ -42,7 +42,7 @@ const Login = () => {
       email,
       user_type,
     };
-    fetch("http://localhost:5000/users", {
+    fetch("https://ipix-server.vercel.app/users", {
       method: "POST",
       headers: {
         "content-type": "application/json",

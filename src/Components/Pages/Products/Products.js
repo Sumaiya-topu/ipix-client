@@ -13,7 +13,7 @@ const Products = () => {
     queryKey: ["products"],
     queryFn: async () => {
       const res = await axios.get(
-        `http://localhost:5000/categories/${params.id}/products`
+        `https://ipix-server.vercel.app/categories/${params.id}/products`
       );
       //const data = await res.json();
       return res.data;
