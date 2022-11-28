@@ -1,6 +1,4 @@
-.home{
-    height: 800px;
-}
+
 
 .banner{
     background-image: linear-gradient(to bottom, rgba(116, 77, 38, 0.415), rgba(0, 0, 0, 0.373)), url('/src/assets/banner-iphone.avif');

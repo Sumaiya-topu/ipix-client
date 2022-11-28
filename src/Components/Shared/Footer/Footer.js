@@ -47,7 +47,10 @@ const Footer = () => {
         </div>
       </div>
       <div>
-        <p>Copyright © 2022 - All right reserved by ACME Industries Ltd</p>
+        <p>
+          Copyright © 2022 - All right reserved by{" "}
+          <span className="text-rose-500 font-bold">i-Pix</span> Technology Ltd
+        </p>
       </div>
     </footer>
   );

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Category = (params) => {
   const { thumbnail, title, _id } = params.category;
   return (
-    <div className="card bg-slate-200 w-3/4 mx-auto rounded-sm p-5 ">
+    <div className="card bg-slate-100 w-3/4 mx-auto rounded-sm p-5 ">
       <figure className="">
         <img src={thumbnail} alt="" className="mt-5 rounded-full w-1/2" />
       </figure>

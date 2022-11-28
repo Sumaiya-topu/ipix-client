@@ -7,7 +7,7 @@ import "./Home.css";
 import axios from "axios";
 import AdvertiseSection from "../../../../Components/AdvertiseSection/AdvertiseSection";
 import { AuthContext } from "../../../../Context/AuthProvider";
-
+import Blackfriday from "../../../../assets/blackfriday.jpg";
 const Home = () => {
   const { user } = useContext(AuthContext);
   const [isSeller] = useSeller(user?.email);
@@ -43,8 +43,9 @@ const Home = () => {
           )}
         </div>
       </div>
+      <img className="mx-auto" src={Blackfriday} alt="" />
       <AdvertiseSection></AdvertiseSection>
-      <div className=" w-3/4  mx-auto bg-base-300">
+      <div className="   mx-auto bg-base-300">
         <h1 className="text-4xl  p-10 font-serif	">
           Choose according to your taste
         </h1>
@@ -54,7 +55,6 @@ const Home = () => {
           ))}
         </div>
       </div>
-      <div className=" h-80 bg-base-200 mb-2"></div>
     </div>
   );
 };

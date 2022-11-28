@@ -14,6 +14,7 @@ import AdminRoute from "./AdminRoute/AdminRoute";
 import SellerRoute from "./SellerRoute/SellerRoute";
 import BuyerRoute from "./BuyerRoute/BuyerRoute";
 import Dashboard from "../Components/Pages/Dashboard/Dashboard";
+import Four_O_Four from "../Components/Four_O_Four/Four_O_Four";
 
 const { createBrowserRouter } = require("react-router-dom");
 
@@ -98,6 +99,10 @@ const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "*",
+    element: <Four_O_Four></Four_O_Four>,
   },
 ]);
 
